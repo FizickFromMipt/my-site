@@ -1,0 +1,25 @@
+{
+  "name_en": "Alex Pevnenko",
+  "intro_en": "I’m the backend developer specializing in Java and distributed systems.<br>I build reliable and scalable backend solutions with cloud technologies.<br>Passionate about clean architecture and performance optimization.",
+  "about_en": "About Me",
+  "projects_en": "My projects",
+  "cv_en": "CV",
+  "blog_en": "Blog",
+  "contact_en": "Contact",
+  "title_en": "Backend Developer",
+  "introText_en": "I build reliable backend systems with Java and cloud technologies.",
+  "aboutText_en": "Backend developer with a focus on performance, distributed systems and clean architecture.",
+  "email_en": "alex@example.com",
+
+  "name_ru": "Александр Певненко",
+  "intro_ru": "backend-разработчик с фокусом на Java и распределённые системы.<br>Создаю надёжные и масштабируемые backend-решения с использованием облачных технологий.<br>Люблю чистую архитектуру, оптимизацию производительности и эффективный дизайн систем.",
+  "about_ru": "Обо мне",
+  "projects_ru": "Мои проекты",
+  "cv_ru": "Резюме",
+  "blog_ru": "Блог",
+  "contact_ru": "Контакты",
+  "title_ru": "Backend Developer",
+  "introText_ru": "I build reliable backend systems with Java and cloud technologies.",
+  "aboutText_ru": "Backend developer with a focus on performance, distributed systems and clean architecture.",
+  "email_ru": "alex@example.com"
+}
