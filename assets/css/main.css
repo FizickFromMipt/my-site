@@ -1841,3 +1841,20 @@ body.is-preload #footer {
   background: rgba(255, 255, 255, 0.1); /* белый с прозрачностью 30% */
   color: #000; /* текст становится чёрным */
 }
+
+.form-status {
+  margin-top: 15px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.form-status.success {
+  color: #4CAF50;
+  opacity: 1;
+}
+
+.form-status.error {
+  color: #ff4d4d;
+  opacity: 1;
+}

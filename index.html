@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Dimension by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Alex Pevnenko</title>
@@ -83,31 +78,35 @@
 						<!-- contact -->
 							<article id="contact">
 								<h2 class="major">Contact</h2>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
-										</div>
-										<div class="field half">
-											<label for="email">Email</label>
-											<input type="text" name="email" id="email" />
-										</div>
-										<div class="field">
-											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="4"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="primary" /></li>
-										<li><input type="reset" value="Reset" /></li>
-									</ul>
+								<form id="contactForm" method="POST" action="https://formspree.io/f/xbdkewrd">
+								 <div class="fields">
+								    <div class="field half">
+								      <label for="name">Name</label>
+								      <input type="text" name="name" id="name" required />
+								    </div>
+								    <div class="field half">
+								      <label for="email">Email</label>
+								      <input type="email" name="email" id="email" required />
+								    </div>
+								    <div class="field">
+								      <label for="message">Message</label>
+								      <textarea name="message" id="message" rows="4" required></textarea>
+								    </div>
+								  </div>								
+								  <input type="hidden" name="_subject" value="Message from alex-pevnenko.ru">
+								  <input type="text" name="_gotcha" style="display:none">								
+
+								  <ul class="actions">
+								    <li><input type="submit" value="Send Message" class="primary" target="_blank" rel="noopener noreferrer"/></li>
+								    <li><input type="reset" value="Reset" target="_blank" rel="noopener noreferrer"/></li>
+								  </ul>
 								</form>
+								<div id="formStatus" class="form-status"></div>
 								<ul class="icons">
-									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="https://x.com/Fizik52517068" class="icon brands fa-twitter" target="_blank" rel="noopener noreferrer"><span class="label">Twitter</span></a></li>
+									<li><a href="https://www.facebook.com/alex.pevnenko/" class="icon brands fa-facebook-f" target="_blank" rel="noopener noreferrer"><span class="label">Facebook</span></a></li>
+									<li><a href="https://t.me/Fizik_heh" class="icon brands fa-telegram" target="_blank" rel="noopener noreferrer"><span class="label">Telegram</span></a></li>
+									<li><a href="https://github.com/FizickFromMipt" class="icon brands fa-github" target="_blank" rel="noopener noreferrer"><span class="label">GitHub</span></a></li>
 								</ul>
 							</article>
 
@@ -382,5 +381,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/data-loader.js"></script>
 			<script src="assets/js/lang.js"></script>
+			<script src="assets/js/contact-form.js"></script>
 	</body>
 </html>
