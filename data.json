@@ -23,5 +23,20 @@
   "title_ru": "Backend Developer",
   "introText_ru": "Создаю надёжные backend-системы на Java с использованием облачных технологий.",
   "aboutText_ru": "Backend-разработчик с фокусом на производительность, распределённые системы и чистую архитектуру.",
-  "email_ru": "alex@example.com"
+  "email_ru": "alex@example.com",
+
+
+  "cv_text_en":"",
+  "cv_text_ru":"Я — опытный backend-разработчик с акцентом на производительность и масштабируемость Java-приложений.<br>Более 6 лет работаю с микросервисной архитектурой, Kubernetes, Kafka и высоконагруженными системами.<br>Мне нравится оптимизировать код и инфраструктуру так, чтобы приложения работали быстрее и надёжнее.<br> В свободное время увлекаюсь 3D-печатью и 3D-моделированием, пишу книги и статьи на Habr.",
+
+
+  "contact_name_en":"name",
+  "contact_email_en":"email",
+  "contact_message_en":"message",
+  "sendButton_en": "Send Message",
+
+  "contact_name_ru":"ФИО",
+  "contact_email_ru":"Почта",
+  "contact_message_ru":"Сообщение",
+  "sendButton_ru": "Отправить сообщение"
 }

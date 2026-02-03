@@ -1803,8 +1803,6 @@ body.is-preload #footer {
   object-fit: cover;
   display: block;
 }
-
-/* 🔥 ВНУТРЕННЯЯ чёрная окантовка */
 #header .logo::after {
   content: "";
   position: absolute;
@@ -1813,14 +1811,12 @@ body.is-preload #footer {
   box-shadow: inset 0 0 0 2px #000;
   pointer-events: none;
 }
-
-.lang-switcher {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-}
-
+#langSwitcherWrapper {
+    position: absolute;  /* фиксируем относительно header */
+    top: 20px;           /* отступ сверху */
+    right: 20px;         /* отступ справа */
+    z-index: 1000;       /* чтобы не перекрывалось другими элементами */
+} 
 #langToggle {
   width: 40px; /* ширина круга */
   height: 40px; /* высота круга */
@@ -1845,16 +1841,24 @@ body.is-preload #footer {
 .form-status {
   margin-top: 15px;
   font-weight: bold;
-  opacity: 0;
+  min-height: 24px;
   transition: opacity 0.3s ease;
 }
 
 .form-status.success {
   color: #4CAF50;
-  opacity: 1;
 }
 
 .form-status.error {
   color: #ff4d4d;
-  opacity: 1;
+}
+
+input:disabled,
+textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#header {
+    position: relative; /* чтобы кнопка с position:absolute позиционировалась внутри шапки */
 }
