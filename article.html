@@ -1,0 +1,21 @@
+<h1 id="title"></h1>
+<img id="cover" />
+<div id="content"></div>
+
+<script>
+async function loadArticle() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('slug');
+
+  const res = await fetch(`https://YOUR-STRAPI/api/articles?filters[slug][$eq]=${slug}&populate=cover`);
+  const data = await res.json();
+  const article = data.data[0].attributes;
+
+  document.getElementById('title').innerText = article.title;
+  document.getElementById('cover').src =
+    'https://YOUR-STRAPI' + article.cover.data.attributes.url;
+  document.getElementById('content').innerHTML = article.content;
+}
+
+loadArticle();
+</script>

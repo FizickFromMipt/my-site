@@ -26,7 +26,9 @@
   "email_ru": "alex@example.com",
 
 
-  "cv_text_en":"",
+  "cv_text_en":"I’m an experienced backend developer with a strong focus on performance and scalability of Java applications.<br>I have over 6 years of experience working with microservice architecture, Kubernetes, Kafka, and high-load systems.<br>I enjoy optimizing code and infrastructure to make applications faster and more reliable.<br>In my free time, I’m into 3D printing and 3D modeling, and I also write books and technical articles on Habr.",
+  "cv_google_drive_en":"Download CV (Google Drive)",
+  "cv_google_drive_ru":"Скачать резюме (Google Диск)",
   "cv_text_ru":"Я — опытный backend-разработчик с акцентом на производительность и масштабируемость Java-приложений.<br>Более 6 лет работаю с микросервисной архитектурой, Kubernetes, Kafka и высоконагруженными системами.<br>Мне нравится оптимизировать код и инфраструктуру так, чтобы приложения работали быстрее и надёжнее.<br> В свободное время увлекаюсь 3D-печатью и 3D-моделированием, пишу книги и статьи на Habr.",
 
 

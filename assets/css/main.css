@@ -1862,3 +1862,25 @@ textarea:disabled {
 #header {
     position: relative; /* чтобы кнопка с position:absolute позиционировалась внутри шапки */
 }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #1b1b1b;
+  padding: 15px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+}
