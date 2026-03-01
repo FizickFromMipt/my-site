@@ -8,12 +8,22 @@ async function loadProjectDetail() {
   }
 
   try {
-    const res = await fetch(
+    // Try by slug first, then by documentId
+    let res = await fetch(
       `${API_BASE_URL}/api/projects?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=cover`
     );
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
-    const data = await res.json();
+    let data = await res.json();
+
+    if (!data.data || data.data.length === 0) {
+      res = await fetch(
+        `${API_BASE_URL}/api/projects/${encodeURIComponent(slug)}?populate=cover`
+      );
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      data = await res.json();
+      data = { data: data.data ? [data.data] : [] };
+    }
 
     if (!data.data || data.data.length === 0) {
       document.getElementById("title").textContent = "Project not found";

@@ -33,7 +33,8 @@ async function loadProjects() {
       desc.textContent = item.shortDescription || "";
 
       const link = document.createElement("a");
-      link.href = `project.html?slug=${encodeURIComponent(item.slug)}`;
+      const identifier = item.slug || item.documentId;
+      link.href = `project.html?slug=${encodeURIComponent(identifier)}`;
       link.className = "button";
       link.textContent = currentLang === "ru" ? "Подробнее" : "Details";
 
