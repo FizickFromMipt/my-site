@@ -23,6 +23,7 @@
   </div>
 
   <script src="assets/js/config.js"></script>
+  <script src="assets/js/blocks-renderer.js"></script>
   <script>
     async function loadArticle() {
       const params = new URLSearchParams(window.location.search);
@@ -46,19 +47,19 @@
           return;
         }
 
-        const article = data.data[0].attributes;
+        const article = data.data[0];
 
         document.getElementById("title").textContent = article.title || "";
 
         const coverEl = document.getElementById("cover");
-        if (article.cover?.data?.attributes?.url) {
-          coverEl.src = `${API_BASE_URL}${article.cover.data.attributes.url}`;
+        if (article.cover?.url) {
+          coverEl.src = `${API_BASE_URL}${article.cover.url}`;
           coverEl.alt = article.title || "";
         } else {
           coverEl.style.display = "none";
         }
 
-        document.getElementById("content").innerHTML = article.content || "";
+        document.getElementById("content").innerHTML = renderBlocks(article.content);
       } catch (err) {
         console.error("Ошибка загрузки статьи:", err);
         document.getElementById("title").textContent = "Failed to load article";

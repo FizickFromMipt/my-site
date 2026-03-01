@@ -1,9 +1,3 @@
-function escapeHtml(str) {
-  const div = document.createElement("div");
-  div.textContent = str;
-  return div.innerHTML;
-}
-
 async function loadProjects() {
   const container = document.getElementById("projects-list");
   container.innerHTML = `<p>${t("loading_projects") || "Loading projects..."}</p>`;
@@ -22,8 +16,7 @@ async function loadProjects() {
     }
 
     data.data.forEach((item) => {
-      const p = item.attributes;
-      const imgUrl = p.cover?.data?.attributes?.url || "";
+      const imgUrl = item.cover?.url || "";
       const imgSrc = imgUrl ? `${API_BASE_URL}${imgUrl}` : "images/pic02.jpg";
 
       const card = document.createElement("div");
@@ -31,16 +24,16 @@ async function loadProjects() {
 
       const img = document.createElement("img");
       img.src = imgSrc;
-      img.alt = escapeHtml(p.title || "");
+      img.alt = item.title || "";
 
       const h3 = document.createElement("h3");
-      h3.textContent = p.title || "";
+      h3.textContent = item.title || "";
 
       const desc = document.createElement("p");
-      desc.textContent = p.shortDescription || "";
+      desc.textContent = item.shortDescription || "";
 
       const link = document.createElement("a");
-      link.href = `project.html?slug=${encodeURIComponent(p.slug)}`;
+      link.href = `project.html?slug=${encodeURIComponent(item.slug)}`;
       link.className = "button";
       link.textContent = currentLang === "ru" ? "Подробнее" : "Details";
 

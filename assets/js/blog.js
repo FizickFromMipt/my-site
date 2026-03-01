@@ -16,8 +16,7 @@ async function loadArticles() {
     }
 
     data.data.forEach((item) => {
-      const a = item.attributes;
-      const imageUrl = a.cover?.data?.attributes?.url || "";
+      const imageUrl = item.cover?.url || "";
       const imgSrc = imageUrl ? `${API_BASE_URL}${imageUrl}` : "images/pic01.jpg";
 
       const card = document.createElement("div");
@@ -25,16 +24,16 @@ async function loadArticles() {
 
       const img = document.createElement("img");
       img.src = imgSrc;
-      img.alt = a.title || "";
+      img.alt = item.title || "";
 
       const h3 = document.createElement("h3");
-      h3.textContent = a.title || "";
+      h3.textContent = item.title || "";
 
       const desc = document.createElement("p");
-      desc.textContent = a.shortDescription || "";
+      desc.textContent = item.shortDescription || "";
 
       const link = document.createElement("a");
-      link.href = `article.html?slug=${encodeURIComponent(a.slug)}`;
+      link.href = `article.html?slug=${encodeURIComponent(item.slug)}`;
       link.className = "button";
       link.textContent = currentLang === "ru" ? "Читать" : "Read";
 

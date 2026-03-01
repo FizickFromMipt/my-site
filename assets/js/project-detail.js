@@ -20,19 +20,19 @@ async function loadProjectDetail() {
       return;
     }
 
-    const project = data.data[0].attributes;
+    const project = data.data[0];
 
     document.getElementById("title").textContent = project.title || "";
 
     const coverEl = document.getElementById("cover");
-    if (project.cover?.data?.attributes?.url) {
-      coverEl.src = `${API_BASE_URL}${project.cover.data.attributes.url}`;
+    if (project.cover?.url) {
+      coverEl.src = `${API_BASE_URL}${project.cover.url}`;
       coverEl.alt = project.title || "";
     } else {
       coverEl.style.display = "none";
     }
 
-    document.getElementById("content").innerHTML = project.content || "";
+    document.getElementById("content").innerHTML = renderBlocks(project.content);
   } catch (err) {
     console.error("Ошибка загрузки проекта:", err);
     document.getElementById("title").textContent = "Failed to load project";
