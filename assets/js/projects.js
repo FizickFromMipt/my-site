@@ -1,40 +1,58 @@
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 async function loadProjects() {
   const container = document.getElementById("projects-list");
-  container.innerHTML = "<p>Загрузка проектов...</p>";
+  container.innerHTML = `<p>${t("loading_projects") || "Loading projects..."}</p>`;
 
   try {
-    const API_HOST = '';
-    const res = await fetch(`${API_HOST}/api/projects`);
+    const res = await fetch(`${API_BASE_URL}/api/projects?populate=cover`);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
     const data = await res.json();
-    console.log("Projects data:", data);
 
-    container.innerHTML = ""; // очистка загрузки
+    container.innerHTML = "";
 
     if (!data.data || data.data.length === 0) {
-      container.innerHTML = "<p>Проекты не найдены</p>";
+      container.innerHTML = `<p>${t("no_projects") || "No projects found"}</p>`;
       return;
     }
 
     data.data.forEach((item) => {
       const p = item.attributes;
-      const imgUrl = p.cover?.data?.attributes?.url || "images/pic02.jpg";
+      const imgUrl = p.cover?.data?.attributes?.url || "";
+      const imgSrc = imgUrl ? `${API_BASE_URL}${imgUrl}` : "images/pic02.jpg";
 
       const card = document.createElement("div");
       card.className = "card";
-      card.innerHTML = `
-        <img src="http://localhost:1337${imgUrl}" alt="${p.title}">
-        <h3>${p.title}</h3>
-        <p>${p.shortDescription || ""}</p>
-        <a href="project.html?slug=${p.slug}" class="button">Подробнее</a>
-      `;
+
+      const img = document.createElement("img");
+      img.src = imgSrc;
+      img.alt = escapeHtml(p.title || "");
+
+      const h3 = document.createElement("h3");
+      h3.textContent = p.title || "";
+
+      const desc = document.createElement("p");
+      desc.textContent = p.shortDescription || "";
+
+      const link = document.createElement("a");
+      link.href = `project.html?slug=${encodeURIComponent(p.slug)}`;
+      link.className = "button";
+      link.textContent = currentLang === "ru" ? "Подробнее" : "Details";
+
+      card.appendChild(img);
+      card.appendChild(h3);
+      card.appendChild(desc);
+      card.appendChild(link);
       container.appendChild(card);
     });
   } catch (err) {
     console.error("Ошибка загрузки проектов:", err);
-    container.innerHTML =
-      "<p>Не удалось загрузить проекты. Проверьте Strapi и CORS.</p>";
+    container.innerHTML = `<p>${t("projects_load_error") || "Failed to load projects."}</p>`;
   }
 }
 

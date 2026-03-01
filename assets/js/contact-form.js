@@ -10,12 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const data = new FormData(form);
 
-    // 🔒 Блокируем форму
     const inputs = form.querySelectorAll("input, textarea, button");
     inputs.forEach(el => el.disabled = true);
 
-    submitBtn.value = "Sending...";
-    status.textContent = "⏳ Sending message...";
+    submitBtn.value = t("sending") || "Sending...";
+    status.textContent = t("sending") || "Sending...";
     status.className = "form-status";
 
     try {
@@ -26,23 +25,21 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       if (response.ok) {
-        status.textContent = "✅ Message sent successfully!";
+        status.textContent = t("send_success") || "Message sent successfully!";
         status.className = "form-status success";
         form.reset();
       } else {
-        status.textContent = "❌ Failed to send. Try again.";
+        status.textContent = t("send_fail") || "Failed to send. Try again.";
         status.className = "form-status error";
       }
     } catch (error) {
-      status.textContent = "❌ Network error. Please try later.";
+      status.textContent = t("send_network_error") || "Network error. Please try later.";
       status.className = "form-status error";
     }
 
-    // 🔓 Разблокируем форму
     inputs.forEach(el => el.disabled = false);
-    submitBtn.value = "Send Message";
+    submitBtn.value = t("sendButton") || "Send Message";
 
-    // скрываем уведомление через 4 сек
     setTimeout(() => {
       status.textContent = "";
       status.className = "form-status";

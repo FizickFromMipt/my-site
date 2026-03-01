@@ -1,21 +1,71 @@
-<h1 id="title"></h1>
-<img id="cover" />
-<div id="content"></div>
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Article</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+  <div id="wrapper">
+    <header>
+      <h1 id="title"></h1>
+    </header>
 
-<script>
-async function loadArticle() {
-  const params = new URLSearchParams(window.location.search);
-  const slug = params.get('slug');
+    <section id="details">
+      <img id="cover" src="" alt="" />
+      <div id="content"></div>
+    </section>
 
-  const res = await fetch(`https://YOUR-STRAPI/api/articles?filters[slug][$eq]=${slug}&populate=cover`);
-  const data = await res.json();
-  const article = data.data[0].attributes;
+    <footer>
+      <a href="index.html" class="button">Back</a>
+    </footer>
+  </div>
 
-  document.getElementById('title').innerText = article.title;
-  document.getElementById('cover').src =
-    'https://YOUR-STRAPI' + article.cover.data.attributes.url;
-  document.getElementById('content').innerHTML = article.content;
-}
+  <script src="assets/js/config.js"></script>
+  <script>
+    async function loadArticle() {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get("slug");
 
-loadArticle();
-</script>
+      if (!slug) {
+        document.getElementById("title").textContent = "Article not found";
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `${API_BASE_URL}/api/blogs?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=cover`
+        );
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+        const data = await res.json();
+
+        if (!data.data || data.data.length === 0) {
+          document.getElementById("title").textContent = "Article not found";
+          return;
+        }
+
+        const article = data.data[0].attributes;
+
+        document.getElementById("title").textContent = article.title || "";
+
+        const coverEl = document.getElementById("cover");
+        if (article.cover?.data?.attributes?.url) {
+          coverEl.src = `${API_BASE_URL}${article.cover.data.attributes.url}`;
+          coverEl.alt = article.title || "";
+        } else {
+          coverEl.style.display = "none";
+        }
+
+        document.getElementById("content").innerHTML = article.content || "";
+      } catch (err) {
+        console.error("Ошибка загрузки статьи:", err);
+        document.getElementById("title").textContent = "Failed to load article";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadArticle);
+  </script>
+</body>
+</html>

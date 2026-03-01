@@ -1,26 +1,53 @@
 async function loadArticles() {
-  const res = await fetch('http://localhost:1337/api/blogs?populate=cover');
-  const data = await res.json();
+  const container = document.getElementById("blog-list");
+  container.innerHTML = `<p>${t("loading_articles") || "Loading articles..."}</p>`;
 
-  const container = document.getElementById('blog-list');
-  container.innerHTML = '';
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/blogs?populate=cover`);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
-  data.data.forEach(item => {
-    const a = item.attributes;
-    const imageUrl = a.cover?.data ? a.cover.data.attributes.url : 'images/pic01.jpg';
+    const data = await res.json();
 
-    const card = document.createElement('div');
-    card.className = 'card';
+    container.innerHTML = "";
 
-    card.innerHTML = `
-      <img src="http://localhost:1337${imageUrl}" alt="${a.title}">
-      <h3>${a.title}</h3>
-      <p>${a.shortDescription}</p>
-      <a href="article.html?slug=${a.slug}" class="button">Читать</a>
-    `;
+    if (!data.data || data.data.length === 0) {
+      container.innerHTML = `<p>${t("no_articles") || "No articles found"}</p>`;
+      return;
+    }
 
-    container.appendChild(card);
-  });
+    data.data.forEach((item) => {
+      const a = item.attributes;
+      const imageUrl = a.cover?.data?.attributes?.url || "";
+      const imgSrc = imageUrl ? `${API_BASE_URL}${imageUrl}` : "images/pic01.jpg";
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const img = document.createElement("img");
+      img.src = imgSrc;
+      img.alt = a.title || "";
+
+      const h3 = document.createElement("h3");
+      h3.textContent = a.title || "";
+
+      const desc = document.createElement("p");
+      desc.textContent = a.shortDescription || "";
+
+      const link = document.createElement("a");
+      link.href = `article.html?slug=${encodeURIComponent(a.slug)}`;
+      link.className = "button";
+      link.textContent = currentLang === "ru" ? "Читать" : "Read";
+
+      card.appendChild(img);
+      card.appendChild(h3);
+      card.appendChild(desc);
+      card.appendChild(link);
+      container.appendChild(card);
+    });
+  } catch (err) {
+    console.error("Ошибка загрузки статей:", err);
+    container.innerHTML = `<p>${t("articles_load_error") || "Failed to load articles."}</p>`;
+  }
 }
 
-document.addEventListener('DOMContentLoaded', loadArticles);
+document.addEventListener("DOMContentLoaded", loadArticles);
