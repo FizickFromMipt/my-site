@@ -36,10 +36,11 @@ async function loadProjectDetail() {
 
     const coverEl = document.getElementById("cover");
     if (project.cover?.url) {
-      coverEl.src = `${API_BASE_URL}${project.cover.url}`;
+      coverEl.src = project.cover.url.startsWith("http")
+        ? project.cover.url
+        : `${API_BASE_URL}${project.cover.url}`;
       coverEl.alt = project.title || "";
-    } else {
-      coverEl.style.display = "none";
+      coverEl.style.display = "";
     }
 
     document.getElementById("content").innerHTML = renderBlocks(project.content);

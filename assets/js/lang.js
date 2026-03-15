@@ -2,15 +2,20 @@
 
 let currentLang = "en";
 let translations = {};
+const langChangeCallbacks = [];
 
 function t(key) {
   return translations[`${key}_${currentLang}`] || "";
 }
 
+function onLanguageChange(callback) {
+  langChangeCallbacks.push(callback);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("langToggle");
+  if (!toggleBtn) return;
 
-  // Смена языка
   function setLanguage(lang) {
     currentLang = lang;
 
@@ -37,23 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     toggleBtn.textContent = lang === "en" ? "EN" : "РУ";
+
+    langChangeCallbacks.forEach((cb) => cb(lang));
   }
 
-  // Переключатель
   toggleBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    const currentHash = window.location.hash;
+    e.stopPropagation();
     const newLang = currentLang === "en" ? "ru" : "en";
     setLanguage(newLang);
-    if (currentHash) {
-      const targetEl = document.querySelector(currentHash);
-      if (targetEl) {
-        targetEl.scrollIntoView({ behavior: "smooth" });
-      }
-    }
   });
 
-  // Загружаем JSON
   fetch("data.json")
     .then((response) => response.json())
     .then((data) => {
